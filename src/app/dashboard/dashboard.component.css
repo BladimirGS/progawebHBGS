@@ -16,13 +16,13 @@
 .sidebar {
   width: 250px;
   background: linear-gradient(135deg, #1B8AF1, #B58DED);
-  padding: 10px;
   box-shadow: 4px 0 10px rgba(0, 0, 0, 0.2);
 }
 
 .sidebar ul {
   list-style-type: none;
   padding: 0;
+  margin-top: 3.5rem;
 }
 
 .sidebar a {
@@ -32,9 +32,11 @@
   font-weight: 600;
   display: block;
   padding: 10px;
-  border-radius: 8px;
-  transition: background-color 0.3s, color 0.3s;
   letter-spacing: 0.5px;
+}
+
+.sidebar span {
+  margin-left: 25px;
 }
 
 .sidebar a:hover {

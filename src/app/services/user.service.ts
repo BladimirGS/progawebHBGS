@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -13,5 +14,15 @@ export class UserService {
   // Método para obtener la lista de usuarios
   getUsers(): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl);
+  }
+
+  // Método de autenticación
+  authenticate(email: string, password: string): Observable<boolean> {
+    return this.getUsers().pipe(
+      map(users => {
+        const user = users.find(u => u.email === email && u.password === password);
+        return !!user;
+      })
+    );
   }
 }

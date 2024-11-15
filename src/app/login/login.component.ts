@@ -8,6 +8,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { UserService } from '../services/user.service';
 import { merge } from 'rxjs';
 
 @Component({
@@ -31,20 +32,25 @@ export class LoginComponent {
   error: string = '';
   readonly email = new FormControl('', [Validators.required, Validators.email]);
   
-  // Signals para mensajes de error y visibilidad de contraseña
   errorMessage = signal('');
   hide = signal(true);
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private userService: UserService) {
     merge(this.email.statusChanges, this.email.valueChanges)
       .pipe(takeUntilDestroyed())
       .subscribe(() => this.updateErrorMessage());
   }
 
   onSubmit() {
-    // Validar los datos antes de navegar al dashboard
     if (this.email.valid && this.password) {
-      this.router.navigate(['/dashboard']);
+      this.userService.authenticate(this.email.value!, this.password)
+        .subscribe(authenticated => {
+          if (authenticated) {
+            this.router.navigate(['/dashboard']);
+          } else {
+            this.error = 'Correo electrónico o contraseña incorrectos';
+          }
+        });
     } else {
       this.error = 'Por favor, completa todos los campos correctamente.';
     }
