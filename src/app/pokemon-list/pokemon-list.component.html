@@ -1,0 +1,39 @@
+<div class="table-container">
+    <div class="card">
+        <div class="card-header">
+            <h1 class="card-title">User Table</h1>
+        </div>
+        <div class="card-content">
+            <ng-container *ngIf="loading; else loadedContent">
+                <div class="skeleton-container">
+                    <div *ngFor="let item of [1,2,3,4,5]" class="skeleton"></div>
+                </div>
+            </ng-container>
+            <ng-template #loadedContent>
+                <table class="pokemon-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Image</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let pokemon of localPokemonList; let i = index">
+                            <td>{{ pokemon.id }}</td>
+                            <td>{{ pokemon.name }}</td>
+                            <td>
+                                <img [src]="pokemon.image" alt="{{ pokemon.name }}" width="50" />
+                            </td>
+                            <td>
+                                <button class="boton-editar" (click)="editPokemon(i)">Edit</button>
+                                <button class="boton-eliminar" (click)="deletePokemon(i)">Delete</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </ng-template>
+        </div>
+    </div>
+</div>
