@@ -56,11 +56,15 @@
                                     <img [src]="pokemon.image" alt="{{ pokemon.name }}" width="50" />
                                 </td>
                                 <td>
-                                    <button 
-                                    type="button" class="boton-editar" (click)="editPokemon(i)"
-                                    data-toggle="modal" data-target="#exampleModalCenter"
-                                    >Edit</button>
-                                    <button type="button" class="boton-eliminar" (click)="deletePokemon(i)">Delete</button>
+                                    <button type="button" class="btn btn-primary" data-toggle="modal"
+                                        data-target="#editPokemonModal" (click)="openEditModal(i)">
+                                        Edit
+                                    </button>
+
+
+                                    <button type="button" class="boton-eliminar" (click)="confirmDeletePokemon(i)">
+                                        Delete
+                                    </button>
                                 </td>
                             </tr>
                         </tbody>
@@ -80,23 +84,32 @@
         </div>
     </div>
 
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
-        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal fade" id="editPokemonModal" tabindex="-1" role="dialog" aria-labelledby="editPokemonModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                    <h5 class="modal-title" id="editPokemonModalLabel">Edit Pokémon</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    ...
+                    <form>
+                        <div class="mb-3">
+                            <label for="pokemonName" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="pokemonName" [(ngModel)]="tempPokemon.name"
+                                name="name" />
+                        </div>
+                        <!-- <div class="mb-3">
+                            <img [src]="tempPokemon.image" alt="{{ tempPokemon.name }}" width="50" />
+                        </div> -->
+                    </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-primary" (click)="savePokemonChanges()"
+                        data-dismiss="modal">Save</button>
                 </div>
             </div>
         </div>
