@@ -12,7 +12,7 @@ import { NgFor } from '@angular/common';
 export class DashboardComponent {
   menuItems = [
     { name: 'Usuarios', link: '/dashboard/users' },
-    { name: 'pokemones', link: '/dashboard/pokemones' },
+    { name: 'pokemon', link: '/dashboard/pokemon' },
 
   ];
 }

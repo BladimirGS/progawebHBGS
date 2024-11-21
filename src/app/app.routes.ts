@@ -13,7 +13,7 @@ export const routes: Routes = [
     children: [
       { path: '', redirectTo: 'users', pathMatch: 'full' },
       { path: 'users', component: UserListComponent }, 
-      { path: 'pokemones', component: PokemonListComponent }
+      { path: 'pokemon', component: PokemonListComponent }
     ]
   }
 ];

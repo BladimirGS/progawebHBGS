@@ -13,12 +13,14 @@ import { CommonModule } from '@angular/common';
 })
 export class PokemonListComponent implements OnInit {
   pokemonList: Pokemon[] = [];
-  localPokemonList: any[] = [];
+  localPokemonList: Pokemon[] = [];
   loading = true;
   currentPage = 1;
   pageSize = 5; // Valor inicial para los registros por página
   sortDirection: 'asc' | 'desc' = 'asc'; // Dirección del orden
   sortBy: 'id' | 'name' = 'id'; // Atributo por el cual ordenar
+  searchTerm: string = ''; // Almacena el término de búsqueda
+  filteredPokemonList: Pokemon[] = []; // Lista filtrada de Pokémon
 
   constructor(private pokemonService: PokemonService) {}
 
@@ -31,8 +33,16 @@ export class PokemonListComponent implements OnInit {
     this.loading = true;
     this.pokemonService.getPokemonList(10).subscribe({
       next: (response) => {
-        this.pokemonList = response.results;
-        this.updateLocalPokemonList(); // Actualizamos la lista de Pokémon después de obtener los datos
+        this.pokemonList = response.results.map((pokemon, index) => ({
+          ...pokemon,
+          id: index + 1,
+          image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${
+            index + 1
+          }.png`,
+        }));
+  
+        this.filteredPokemonList = [...this.pokemonList];
+        this.updateLocalPokemonList();
         this.loading = false;
       },
       error: (error) => {
@@ -40,23 +50,26 @@ export class PokemonListComponent implements OnInit {
         this.loading = false;
       },
     });
-  }
+  }  
 
   updateLocalPokemonList() {
     const start = (this.currentPage - 1) * this.pageSize;
     const end = start + this.pageSize;
-    this.localPokemonList = this.pokemonList
-      .slice(start, end)
-      .map((pokemon, index) => ({
-        id: start + index + 1,
-        name: pokemon.name,
-        image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${
-          start + index + 1
-        }.png`,
-      }));
-
+    this.localPokemonList = this.filteredPokemonList.slice(start, end);
+  
     // Ordenar la lista local según la dirección y el campo seleccionado
     this.sortList();
+  }  
+
+  // Método para manejar la búsqueda
+  onSearch(): void {
+    const term = this.searchTerm.toLowerCase();
+    this.filteredPokemonList = this.pokemonList.filter(
+      (pokemon) =>
+        pokemon.name.toLowerCase().includes(term) ||
+        pokemon.id.toString().includes(term)
+    );
+    this.updateLocalPokemonList();
   }
 
   nextPage() {
@@ -91,8 +104,8 @@ export class PokemonListComponent implements OnInit {
       let compareA = a[this.sortBy];
       let compareB = b[this.sortBy];
 
-      if (typeof compareA === 'string') {
-        compareA = compareA.toLowerCase(); // Asegurar que las cadenas se comparen en minúsculas
+      if (typeof compareA === 'string' && typeof compareB === 'string') {
+        compareA = compareA.toLowerCase(); 
         compareB = compareB.toLowerCase();
       }
 
