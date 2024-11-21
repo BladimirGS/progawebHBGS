@@ -56,14 +56,18 @@
                                     <img [src]="pokemon.image" alt="{{ pokemon.name }}" width="50" />
                                 </td>
                                 <td>
-                                    <button type="button" class="btn btn-primary" data-toggle="modal"
+                                    <button type="button" class="boton boton-editar" data-toggle="modal"
                                         data-target="#editPokemonModal" (click)="openEditModal(i)">
                                         Edit
                                     </button>
 
-
-                                    <button type="button" class="boton-eliminar" (click)="confirmDeletePokemon(i)">
+                                    <button type="button" class="boton boton-eliminar" (click)="confirmDeletePokemon(i)">
                                         Delete
+                                    </button>
+
+                                    <button type="button" class="boton boton-ver" data-toggle="modal"
+                                        data-target="#viewMoreModal" (click)="openViewMoreModal(i)">
+                                        View More
                                     </button>
                                 </td>
                             </tr>
@@ -75,15 +79,16 @@
 
                     <div class="pagination-buttons">
                         <button (click)="previousPage()" [disabled]="currentPage === 1"
-                            class="boton-paginacion">Previous</button>
+                            class="boton boton-paginacion">Previous</button>
                         <button (click)="nextPage()" [disabled]="endIndex >= pokemonList.length"
-                            class="boton-paginacion">Next</button>
+                            class="boton boton-paginacion">Next</button>
                     </div>
                 </div>
             </ng-template>
         </div>
     </div>
 
+    <!-- Modal for edit Pokemon -->
     <div class="modal fade" id="editPokemonModal" tabindex="-1" role="dialog" aria-labelledby="editPokemonModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -101,15 +106,41 @@
                             <input type="text" class="form-control" id="pokemonName" [(ngModel)]="tempPokemon.name"
                                 name="name" />
                         </div>
-                        <!-- <div class="mb-3">
-                            <img [src]="tempPokemon.image" alt="{{ tempPokemon.name }}" width="50" />
-                        </div> -->
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-primary" (click)="savePokemonChanges()"
                         data-dismiss="modal">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for View More -->
+    <div class="modal fade" id="viewMoreModal" tabindex="-1" role="dialog" aria-labelledby="viewMoreModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="viewMoreModalLabel">Pokémon Details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div *ngIf="selectedPokemon">
+                        <h5>{{ selectedPokemon.name }}</h5>
+                        <img [src]="selectedPokemon.image" alt="{{ selectedPokemon.name }}" width="150" />
+                        <p><strong>ID:</strong> {{ selectedPokemon.id }}</p>
+                        <p><strong>Abilities:</strong> {{ selectedPokemon.abilities?.join(', ') }}</p>
+                        <p><strong>Type:</strong> {{ selectedPokemon.type }}</p>
+                        <p><strong>Height:</strong> {{ selectedPokemon.height }} m</p>
+                        <p><strong>Weight:</strong> {{ selectedPokemon.weight }} kg</p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>

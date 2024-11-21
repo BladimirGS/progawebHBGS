@@ -23,6 +23,7 @@ export class PokemonListComponent implements OnInit {
   searchTerm: string = ''; // Almacena el término de búsqueda
   filteredPokemonList: Pokemon[] = []; // Lista filtrada de Pokémon
   tempPokemon: Pokemon = { id: 0, name: '', image: '' };
+  selectedPokemon: Pokemon | null = null;
 
   constructor(private pokemonService: PokemonService) {}
 
@@ -66,20 +67,38 @@ export class PokemonListComponent implements OnInit {
   openEditModal(index: number): void {
     this.tempPokemon = { ...this.localPokemonList[index] };
   }
-  
+
   savePokemonChanges(): void {
     // Encuentra el índice del Pokémon en la lista filtrada (filteredPokemonList)
     const filteredIndex = this.filteredPokemonList.findIndex(
       (pokemon) => pokemon.id === this.tempPokemon.id
     );
-  
+
     if (filteredIndex !== -1) {
       // Actualiza el Pokémon en filteredPokemonList
       this.filteredPokemonList[filteredIndex] = { ...this.tempPokemon };
-  
+
       // Recalcula la lista local
       this.updateLocalPokemonList();
     }
+  }
+
+  openViewMoreModal(index: number): void {
+    const pokemon = this.localPokemonList[index];
+    this.pokemonService.getPokemonDetails(pokemon.id).subscribe({
+      next: (details) => {
+        this.selectedPokemon = { 
+          ...pokemon, 
+          abilities: details.abilities.map((ability: any) => ability.ability.name),
+          type: details.types.map((type: any) => type.type.name).join(', '),
+          height: details.height,
+          weight: details.weight,
+        }; // Combina la info local y la detallada
+      },
+      error: (err) => {
+        console.error('Error fetching Pokemon details:', err);
+      }
+    });
   }
   
 
@@ -155,7 +174,6 @@ export class PokemonListComponent implements OnInit {
     }
     this.sortList();
   }
-
 
   confirmDeletePokemon(index: number): void {
     Swal.fire({

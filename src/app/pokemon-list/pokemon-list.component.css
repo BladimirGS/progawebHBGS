@@ -75,39 +75,23 @@
   transform: scale(1.1);
 }
 
-.pagination {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 16px;
-  font-size: 0.875rem;
-  color: #555;
-}
-
-.pagination-buttons {
-  display: flex;
-  gap: 8px;
-}
-
 button {
   padding: 4px 12px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.2s ease;
-  color: white;
   font-size: 14px;
   border-radius: 4px;
+}
+
+.boton {
+  color: white;
 }
 
 button:disabled {
   cursor: not-allowed;
   opacity: 0.5;
-}
-
-button:hover {
-  background-color: #0056b3;
-  color: white;
 }
 
 button:active {
@@ -116,12 +100,17 @@ button:active {
 
 .boton-editar {
   background-color: #007bff;
-  margin-right: 1rem;
+  margin: 0 1rem;
 }
 
 .boton-eliminar {
   background-color: #d4265d;
-  margin-left: 1rem;
+  margin: 0 1rem;
+}
+
+.boton-ver {
+  background-color: #14c08a;
+  margin: 0 1rem;
 }
 
 button:hover.boton-eliminar {
@@ -129,7 +118,11 @@ button:hover.boton-eliminar {
 }
 
 button:hover.boton-editar {
-  background-color: #0d4e93;
+  background-color: #1460b2;
+}
+
+button:hover.boton-ver {
+  background-color: #0f996d;
 }
 
 .pagination select {
