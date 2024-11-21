@@ -10,29 +10,63 @@
                 </div>
             </ng-container>
             <ng-template #loadedContent>
-                <table class="pokemon-table">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Name</th>
-                            <th>Image</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let pokemon of localPokemonList; let i = index">
-                            <td>{{ pokemon.id }}</td>
-                            <td>{{ pokemon.name }}</td>
-                            <td>
-                                <img [src]="pokemon.image" alt="{{ pokemon.name }}" width="50" />
-                            </td>
-                            <td>
-                                <button class="boton-editar" (click)="editPokemon(i)">Edit</button>
-                                <button class="boton-eliminar" (click)="deletePokemon(i)">Delete</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="table-responsive">
+                    <table class="pokemon-table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <button (click)="changeSortField('id')"
+                                        [class.sorted-asc]="sortBy === 'id' && sortDirection === 'asc'"
+                                        [class.sorted-desc]="sortBy === 'id' && sortDirection === 'desc'">
+                                        #
+                                    </button>
+                                </th>
+                                <th>
+                                    <button (click)="changeSortField('name')"
+                                        [class.sorted-asc]="sortBy === 'name' && sortDirection === 'asc'"
+                                        [class.sorted-desc]="sortBy === 'name' && sortDirection === 'desc'">
+                                        Name
+                                    </button>
+                                </th>
+                                <th>Image</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let pokemon of localPokemonList; let i = index">
+                                <td>{{ pokemon.id }}</td>
+                                <td>{{ pokemon.name }}</td>
+                                <td>
+                                    <img [src]="pokemon.image" alt="{{ pokemon.name }}" width="50" />
+                                </td>
+                                <td>
+                                    <button class="boton-editar" (click)="editPokemon(i)">Edit</button>
+                                    <button class="boton-eliminar" (click)="deletePokemon(i)">Delete</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="pagination">
+                    <span>Showing {{ startIndex + 1 }} to {{ endIndex }} of {{ pokemonList.length }} entries</span>
+
+                    <!-- Selector para cambiar la cantidad de registros por página -->
+                    <div>
+                        <label for="pageSize">Records per page:</label>
+                        <select id="pageSize" [(ngModel)]="pageSize" (change)="updateLocalPokemonList()">
+                            <option [ngValue]="5">5</option>
+                            <option [ngValue]="10">10</option>
+                            <option [ngValue]="20">20</option>
+                            <option [ngValue]="50">50</option>
+                        </select>
+                    </div>
+
+                    <div class="pagination-buttons">
+                        <button (click)="previousPage()" [disabled]="currentPage === 1" class="btn">Previous</button>
+                        <button (click)="nextPage()" [disabled]="endIndex >= pokemonList.length"
+                            class="btn">Next</button>
+                    </div>
+                </div>
             </ng-template>
         </div>
     </div>
