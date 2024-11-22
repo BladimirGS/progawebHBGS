@@ -58,16 +58,20 @@
                                 <td>
                                     <button type="button" class="boton boton-editar" data-toggle="modal"
                                         data-target="#editPokemonModal" (click)="openEditModal(i)">
-                                        Edit
+                                        <i class="bi bi-pencil"></i>
+                                        <span>Edit</span>
                                     </button>
 
-                                    <button type="button" class="boton boton-eliminar" (click)="confirmDeletePokemon(i)">
-                                        Delete
+                                    <button type="button" class="boton boton-eliminar"
+                                        (click)="confirmDeletePokemon(i)">
+                                        <i class="bi bi-trash"></i>
+                                        <span>Delete</span>
                                     </button>
 
                                     <button type="button" class="boton boton-ver" data-toggle="modal"
                                         data-target="#viewMoreModal" (click)="openViewMoreModal(i)">
-                                        View More
+                                        <i class="bi bi-info-circle"></i>
+                                        <span>View More</span>
                                     </button>
                                 </td>
                             </tr>

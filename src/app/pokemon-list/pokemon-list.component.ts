@@ -33,8 +33,7 @@ export class PokemonListComponent implements OnInit {
 
   // Obtener los datos de Pokémon
   fetchPokemon(): void {
-    this.loading = true;
-    this.pokemonService.getPokemonList(10).subscribe({
+    this.pokemonService.getPokemonList(100).subscribe({
       next: (response) => {
         this.pokemonList = response.results.map((pokemon, index) => ({
           ...pokemon,

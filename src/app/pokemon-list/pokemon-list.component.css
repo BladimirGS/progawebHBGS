@@ -1,7 +1,7 @@
 .table-container {
   padding: 20px;
   margin: 0 auto;
-  max-width: 1200px;
+  max-width: 900px;
   background-color: #f9f9f9;
 }
 
@@ -87,6 +87,8 @@ button {
 
 .boton {
   color: white;
+  text-align: center;
+  justify-content: center;
 }
 
 button:disabled {
@@ -100,7 +102,7 @@ button:active {
 
 .boton-editar {
   background-color: #007bff;
-  margin: 0 1rem;
+  margin-right: 1rem;
 }
 
 .boton-eliminar {
@@ -110,7 +112,7 @@ button:active {
 
 .boton-ver {
   background-color: #14c08a;
-  margin: 0 1rem;
+  margin-left: 1rem;
 }
 
 button:hover.boton-eliminar {
@@ -123,6 +125,10 @@ button:hover.boton-editar {
 
 button:hover.boton-ver {
   background-color: #0f996d;
+}
+
+button i {
+  margin-right: 8px;
 }
 
 .pagination select {
@@ -168,12 +174,12 @@ button:hover.boton-ver {
 
 /* Estilos cuando el botón es hover */
 .pokemon-table th button:hover {
-  color: #0056b3; 
+  color: #0056b3;
   transform: scale(1.05);
 }
 
 .pokemon-table th button:active {
-  transform: scale(1); 
+  transform: scale(1);
 }
 
 .pokemon-table th button::after {
@@ -184,7 +190,7 @@ button:hover.boton-ver {
   height: 0;
   border-left: 4px solid transparent;
   border-right: 4px solid transparent;
-  border-top: 6px solid #007bff; 
+  border-top: 6px solid #007bff;
   transition: transform 0.3s;
 }
 
@@ -197,7 +203,6 @@ button:hover.boton-ver {
   transform: rotate(0deg);
   border-top-color: #0056b3;
 }
-
 
 .pagination {
   display: flex;
