@@ -2,10 +2,9 @@
   display: flex;
   flex-direction: column;
   height: 100vh;
-  font-family: 'Poppins', sans-serif; /* Fuente moderna */
+  font-family: 'Poppins', sans-serif;
   background-color: #f8f9fa;
 }
-
 
 .content {
   display: flex;
@@ -40,9 +39,9 @@
 }
 
 .sidebar a:hover {
-  background-color: #4545db; /* Un púrpura más oscuro */
-  color: #fffbf0; /* Blanco cálido */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave al hacer hover */
+  background-color: #4545db;
+  color: #fffbf0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 main {
@@ -53,7 +52,34 @@ main {
   box-shadow: 0 4px 25px rgba(0, 0, 0, 0.1);
   margin-left: 30px;
   overflow-y: auto;
-  background: linear-gradient(180deg, #ffffff, #f8f9fa); /* Fondo degradado para dar más profundidad */
+  background: linear-gradient(180deg, #ffffff, #f8f9fa);
 }
 
+.user-info {
+  display: flex;
+  align-items: center;
+  margin: 20px;
+}
 
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+  margin-left: 30px;
+  border: 2px solid #fff; /* Agregar borde blanco alrededor de la imagen */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra suave para un efecto de profundidad */
+}
+
+button {
+  margin-left: 20px;
+  padding: 5px 10px;
+  background-color: #f44336;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #d32f2f;
+}
