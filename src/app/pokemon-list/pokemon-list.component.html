@@ -82,12 +82,26 @@
                     <span>Showing {{ startIndex + 1 }} to {{ endIndex }} of {{ pokemonList.length }} entries</span>
 
                     <div class="pagination-buttons">
-                        <button (click)="previousPage()" [disabled]="currentPage === 1"
-                            class="boton boton-paginacion">Previous</button>
+                        <button (click)="goToFirstPage()" [disabled]="currentPage === 1" class="boton boton-paginacion">
+                            First
+                        </button>
+                        <button (click)="previousPage()" [disabled]="currentPage === 1" class="boton boton-paginacion">
+                            Previous
+                        </button>
+
+                        <span class="page-indicator">Page {{ currentPage }} of {{ totalPages }}</span>
+
                         <button (click)="nextPage()" [disabled]="endIndex >= pokemonList.length"
-                            class="boton boton-paginacion">Next</button>
+                            class="boton boton-paginacion">
+                            Next
+                        </button>
+                        <button (click)="goToLastPage()" [disabled]="endIndex >= pokemonList.length"
+                            class="boton boton-paginacion">
+                            Last
+                        </button>
                     </div>
                 </div>
+
             </ng-template>
         </div>
     </div>

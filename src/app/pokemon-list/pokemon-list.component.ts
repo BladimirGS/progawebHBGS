@@ -112,6 +112,25 @@ export class PokemonListComponent implements OnInit {
     this.updateLocalPokemonList();
   }
 
+  goToFirstPage() {
+    if (this.currentPage !== 1) {
+      this.currentPage = 1;
+      this.fetchPokemon();
+    }
+  }
+  
+  goToLastPage() {
+    const lastPage = Math.ceil(this.pokemonList.length / this.pageSize);
+    if (this.currentPage !== lastPage) {
+      this.currentPage = lastPage;
+      this.fetchPokemon();
+    }
+  }
+
+  get totalPages(): number {
+    return Math.ceil(this.pokemonList.length / this.pageSize);
+  }  
+
   nextPage() {
     if (this.endIndex < this.pokemonList.length) {
       this.currentPage++;
