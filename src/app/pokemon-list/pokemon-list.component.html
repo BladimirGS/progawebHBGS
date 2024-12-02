@@ -1,7 +1,7 @@
 <div class="table-container">
-    <div class="card">
-        <div class="card-header">
-            <h1 class="card-title">List of Pokemon</h1>
+    <div class="entorno">
+        <div class="header">
+            <h1 class="title">List of Pokemon</h1>
             <div class="controls">
                 <div class="search-bar">
                     <input type="text" placeholder="Search by name or ID..." [(ngModel)]="searchTerm"
@@ -19,7 +19,7 @@
             </div>
         </div>
 
-        <div class="card-content">
+        <div class="content">
             <ng-container *ngIf="loading; else loadedContent">
                 <div class="skeleton-container">
                     <div *ngFor="let item of [1,2,3,4,5]" class="skeleton"></div>

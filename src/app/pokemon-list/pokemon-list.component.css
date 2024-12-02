@@ -4,14 +4,14 @@
   max-width: 750px;
 }
 
-.card {
+.entorno {
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   background-color: white;
   padding: 16px;
 }
 
-.card-header {
+.header {
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -20,7 +20,7 @@
   border-radius: 8px 8px 0 0;
 }
 
-.card-title {
+.title {
   margin: 0;
   font-size: 1.25rem;
   font-weight: bold;
@@ -33,7 +33,7 @@
   gap: 16px;
 }
 
-.card-content {
+.content {
   padding: 16px;
 }
 

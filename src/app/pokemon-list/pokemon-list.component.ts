@@ -17,11 +17,11 @@ export class PokemonListComponent implements OnInit {
   localPokemonList: Pokemon[] = [];
   loading = true;
   currentPage = 1;
-  pageSize = 5; // Valor inicial para los registros por página
-  sortDirection: 'asc' | 'desc' = 'asc'; // Dirección del orden
-  sortBy: 'id' | 'name' = 'id'; // Atributo por el cual ordenar
-  searchTerm: string = ''; // Almacena el término de búsqueda
-  filteredPokemonList: Pokemon[] = []; // Lista filtrada de Pokémon
+  pageSize = 5; 
+  sortDirection: 'asc' | 'desc' = 'asc'; 
+  sortBy: 'id' | 'name' = 'id'; 
+  searchTerm: string = ''; 
+  filteredPokemonList: Pokemon[] = []; 
   tempPokemon: Pokemon = { id: 0, name: '', image: '' };
   selectedPokemon: Pokemon | null = null;
 
@@ -31,7 +31,6 @@ export class PokemonListComponent implements OnInit {
     this.fetchPokemon();
   }
 
-  // Obtener los datos de Pokémon
   fetchPokemon(): void {
     this.pokemonService.getPokemonList(100).subscribe({
       next: (response) => {
@@ -59,7 +58,6 @@ export class PokemonListComponent implements OnInit {
     const end = start + this.pageSize;
     this.localPokemonList = this.filteredPokemonList.slice(start, end);
 
-    // Ordenar la lista local según la dirección y el campo seleccionado
     this.sortList();
   }
 
@@ -68,16 +66,13 @@ export class PokemonListComponent implements OnInit {
   }
 
   savePokemonChanges(): void {
-    // Encuentra el índice del Pokémon en la lista filtrada (filteredPokemonList)
     const filteredIndex = this.filteredPokemonList.findIndex(
       (pokemon) => pokemon.id === this.tempPokemon.id
     );
 
     if (filteredIndex !== -1) {
-      // Actualiza el Pokémon en filteredPokemonList
       this.filteredPokemonList[filteredIndex] = { ...this.tempPokemon };
 
-      // Recalcula la lista local
       this.updateLocalPokemonList();
     }
   }
@@ -92,7 +87,7 @@ export class PokemonListComponent implements OnInit {
           type: details.types.map((type: any) => type.type.name).join(', '),
           height: details.height,
           weight: details.weight,
-        }; // Combina la info local y la detallada
+        }; 
       },
       error: (err) => {
         console.error('Error fetching Pokemon details:', err);
@@ -100,8 +95,6 @@ export class PokemonListComponent implements OnInit {
     });
   }
   
-
-  // Método para manejar la búsqueda
   onSearch(): void {
     const term = this.searchTerm.toLowerCase();
     this.filteredPokemonList = this.pokemonList.filter(
@@ -157,7 +150,6 @@ export class PokemonListComponent implements OnInit {
     return pokemon.id;
   }
 
-  // Función para ordenar por un atributo
   sortList() {
     this.localPokemonList.sort((a, b) => {
       let compareA = a[this.sortBy];
@@ -176,19 +168,17 @@ export class PokemonListComponent implements OnInit {
     });
   }
 
-  // Cambiar la dirección del orden
   toggleSortDirection() {
     this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
     this.sortList();
   }
 
-  // Cambiar el campo por el cual ordenar
   changeSortField(field: 'id' | 'name') {
     if (this.sortBy === field) {
-      this.toggleSortDirection(); // Si ya está ordenado por ese campo, cambia la dirección
+      this.toggleSortDirection(); 
     } else {
       this.sortBy = field;
-      this.sortDirection = 'asc'; // Reiniciar dirección a ascendente
+      this.sortDirection = 'asc'; 
     }
     this.sortList();
   }
@@ -204,7 +194,7 @@ export class PokemonListComponent implements OnInit {
       confirmButtonText: 'Yes, delete it!',
     }).then((result) => {
       if (result.isConfirmed) {
-        this.localPokemonList.splice(index, 1); // Elimina el Pokémon
+        this.localPokemonList.splice(index, 1); 
         Swal.fire('Deleted!', 'The Pokémon has been deleted.', 'success');
       }
     });
